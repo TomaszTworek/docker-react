@@ -1,0 +1,10 @@
+sudo: required #super permissions
+services: #install copy of docker ready to go
+  - docker
+
+before_install: #steps that must occur before running our project, or tests
+  - docker build -t tomaszt/docker-react -f Dockerfile.dev . 
+
+script: #all different commands needed to run our test suit
+  # -e CI=true exits npm run test!
+  - docker run -e CI=true tomaszt/docker-react npm run test
